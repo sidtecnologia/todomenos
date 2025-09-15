@@ -109,7 +109,7 @@ body {
   overflow: hidden;
   border-radius: 12px;
   box-shadow: var(--shadow);
-  aspect-ratio: 16/9;
+  aspect-ratio: 21/9;
 }
 
 .banner-carousel {
