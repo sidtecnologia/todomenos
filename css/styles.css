@@ -125,7 +125,7 @@ body {
 .banner-slide img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 
@@ -145,6 +145,7 @@ body {
   background: rgba(255,255,255,0.6);
   cursor: pointer;
   transition: background 0.3s;
+  border: 1px;
 }
 
 .banner-dot.active {
