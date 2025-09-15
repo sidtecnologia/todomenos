@@ -109,7 +109,7 @@ body {
   overflow: hidden;
   border-radius: 12px;
   box-shadow: var(--shadow);
-  aspect-ratio: 21/9;
+  aspect-ratio: 16/9;
 }
 
 .banner-carousel {
@@ -146,7 +146,7 @@ body {
   background: rgba(255,255,255,0.6);
   cursor: pointer;
   transition: background 0.3s;
-  border: 1px solid #333;
+  border: 2px solid #333;
 }
 
 .banner-dot.active {
