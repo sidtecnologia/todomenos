@@ -109,7 +109,6 @@ body {
   overflow: hidden;
   border-radius: 12px;
   box-shadow: var(--shadow);
-  aspect-ratio: 16/9;
 }
 
 .banner-carousel {
@@ -146,7 +145,7 @@ body {
   background: rgba(255,255,255,0.6);
   cursor: pointer;
   transition: background 0.3s;
-  border: 1px solid var(--primary);
+  border: 1.2px solid var(--primary);
 }
 
 .banner-dot.active {
@@ -154,7 +153,7 @@ body {
 }
 
 
-/* ===== ESTILOS DE MODALES CORREGIDOS ===== */
+/* ===== ESTILOS DE MODAL ===== */
 
 /* Modal Structure */
 .modal {
