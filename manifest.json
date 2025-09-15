@@ -1,0 +1,20 @@
+{
+  "short_name": "Supermercado TodoMenos",
+  "name": "TODOMENOS",
+  "icons": [
+    {
+      "src": "img/favicon.png",
+      "type": "image/png",
+      "sizes": "392x392"
+    },
+    {
+      "src": "img/favicon.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#fff",
+  "theme_color": "#3257efcf"
+}
