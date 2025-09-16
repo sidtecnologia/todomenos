@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const money = (v) => {
     const value = Math.floor(v);
     return value.toLocaleString('es-CO');
-};
+  };
 
   // --- Banner Carousel ---
   const bannerCarousel = document.getElementById('banner-carousel');
@@ -113,7 +113,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Add event listeners for the new cloned slides logic
     let startX = 0;
-    bannerCarousel.addEventListener('touchstart', e => { startX = e.touches[0].clientX; });
+    bannerCarousel.addEventListener('touchstart', e => {
+      startX = e.touches[0].clientX;
+    });
     bannerCarousel.addEventListener('touchend', e => {
       let endX = e.changedTouches[0].clientX;
       if (endX - startX > 50) {
@@ -126,8 +128,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    let isDown = false, startXMouse;
-    bannerCarousel.addEventListener('mousedown', e => { isDown = true; startXMouse = e.pageX; });
+    let isDown = false,
+      startXMouse;
+    bannerCarousel.addEventListener('mousedown', e => {
+      isDown = true;
+      startXMouse = e.pageX;
+    });
     bannerCarousel.addEventListener('mouseup', e => {
       if (!isDown) return;
       let diff = e.pageX - startXMouse;
@@ -146,22 +152,33 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- Categorías ---
-  const categories = Array.from(new Set(productData.map(p => p.category))).map(c => ({ label: c }));
+  const categories = Array.from(new Set(productData.map(p => p.category))).map(c => ({
+    label: c
+  }));
 
-  const generateProductCard = (p) => `
-    <div class="product-card" data-product-id="${p.id}">
-      <img src="${p.image[0]}" alt="${p.name}" class="product-image modal-trigger" data-id="${p.id}" loading="lazy" />
-      <div class="product-info">
-        <div>
-          <div class="product-name">${p.name}</div>
-          <div class="product-description">${p.description}</div>
-        </div>
-        <div style="margin-top:8px">
-          <div class="product-price">$${money(p.price)}</div>
+  // Modificación aquí para incluir la etiqueta
+  const generateProductCard = (p) => {
+    let bestSellerTag = '';
+    if (p.bestSeller) {
+      bestSellerTag = `<div class="best-seller-tag">Lo más vendido</div>`;
+    }
+
+    return `
+      <div class="product-card" data-product-id="${p.id}">
+        ${bestSellerTag}
+        <img src="${p.image[0]}" alt="${p.name}" class="product-image modal-trigger" data-id="${p.id}" loading="lazy" />
+        <div class="product-info">
+          <div>
+            <div class="product-name">${p.name}</div>
+            <div class="product-description">${p.description}</div>
+          </div>
+          <div style="margin-top:8px">
+            <div class="product-price">$${money(p.price)}</div>
+          </div>
         </div>
       </div>
-    </div>
-  `;
+    `;
+  };
 
   // --- Renderizado con paginación ---
   function renderProducts(container, products, page = 1, perPage = 20, withPagination = false) {
@@ -170,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!products || products.length === 0) {
       noProductsMessage.style.display = 'block';
-      if(paginationContainer) paginationContainer.innerHTML = '';
+      if (paginationContainer) paginationContainer.innerHTML = '';
       return;
     }
     noProductsMessage.style.display = 'none';
@@ -200,7 +217,10 @@ document.addEventListener('DOMContentLoaded', () => {
       if (active) btn.classList.add('active');
       btn.addEventListener('click', () => {
         renderProducts(allFilteredContainer, products, page, perPage, true);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
       });
       return btn;
     }
@@ -233,7 +253,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   searchInput.addEventListener('input', (e) => {
     const q = e.target.value.trim().toLowerCase();
-    if (!q) { showDefaultSections(); return; }
+    if (!q) {
+      showDefaultSections();
+      return;
+    }
     const filtered = productData.filter(p => p.name.toLowerCase().includes(q) || p.description.toLowerCase().includes(q) || p.category.toLowerCase().includes(q));
     filteredSection.style.display = 'block';
     featuredSection.style.display = 'none';
@@ -257,7 +280,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!img) return;
     const cat = img.dataset.category;
     searchInput.value = '';
-    if (cat === '__all') { showDefaultSections(); return; }
+    if (cat === '__all') {
+      showDefaultSections();
+      return;
+    }
     const filtered = productData.filter(p => p.category.toLowerCase() === cat.toLowerCase());
     filteredSection.style.display = 'block';
     featuredSection.style.display = 'none';
@@ -267,12 +293,32 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   (function makeCarouselDraggable() {
-    let isDown = false, startX, scrollLeft;
-    categoryCarousel.addEventListener('mousedown', (e) => { isDown = true; startX = e.pageX - categoryCarousel.offsetLeft; scrollLeft = categoryCarousel.scrollLeft; });
-    window.addEventListener('mouseup', () => { isDown = false; });
-    categoryCarousel.addEventListener('mousemove', (e) => { if (!isDown) return; e.preventDefault(); const x = e.pageX - categoryCarousel.offsetLeft; const walk = (x - startX) * 1.5; categoryCarousel.scrollLeft = scrollLeft - walk; });
-    categoryCarousel.addEventListener('touchstart', (e) => { startX = e.touches[0].pageX - categoryCarousel.offsetLeft; scrollLeft = categoryCarousel.scrollLeft; });
-    categoryCarousel.addEventListener('touchmove', (e) => { const x = e.touches[0].pageX - categoryCarousel.offsetLeft; const walk = (x - startX) * 1.2; categoryCarousel.scrollLeft = scrollLeft - walk; });
+    let isDown = false,
+      startX, scrollLeft;
+    categoryCarousel.addEventListener('mousedown', (e) => {
+      isDown = true;
+      startX = e.pageX - categoryCarousel.offsetLeft;
+      scrollLeft = categoryCarousel.scrollLeft;
+    });
+    window.addEventListener('mouseup', () => {
+      isDown = false;
+    });
+    categoryCarousel.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - categoryCarousel.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      categoryCarousel.scrollLeft = scrollLeft - walk;
+    });
+    categoryCarousel.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].pageX - categoryCarousel.offsetLeft;
+      scrollLeft = categoryCarousel.scrollLeft;
+    });
+    categoryCarousel.addEventListener('touchmove', (e) => {
+      const x = e.touches[0].pageX - categoryCarousel.offsetLeft;
+      const walk = (x - startX) * 1.2;
+      categoryCarousel.scrollLeft = scrollLeft - walk;
+    });
   })();
 
   document.addEventListener('click', (e) => {
@@ -286,12 +332,13 @@ document.addEventListener('DOMContentLoaded', () => {
       closeModal(productModal);
     }
   });
-  
+
   // --- Lógica de Modales (CORREGIDA) ---
   function showModal(modal) {
     modal.style.display = 'flex'; // Usar flex para que el CSS de centrado funcione
     modal.setAttribute('aria-hidden', 'false');
   }
+
   function closeModal(modal) {
     modal.style.display = 'none';
     modal.setAttribute('aria-hidden', 'true');
@@ -340,7 +387,10 @@ document.addEventListener('DOMContentLoaded', () => {
     carouselImagesContainer.style.transform = `translateX(0)`;
   }
 
-  prevBtn.addEventListener('click', () => { if (currentImageIndex > 0) currentImageIndex--; updateCarouselPosition(); });
+  prevBtn.addEventListener('click', () => {
+    if (currentImageIndex > 0) currentImageIndex--;
+    updateCarouselPosition();
+  });
   nextBtn.addEventListener('click', () => {
     const imgs = carouselImagesContainer.querySelectorAll('.carousel-image');
     if (currentImageIndex < imgs.length - 1) currentImageIndex++;
@@ -364,7 +414,8 @@ document.addEventListener('DOMContentLoaded', () => {
       cartTotalElement.textContent = money(0);
       return;
     }
-    let total = 0, totalItems = 0;
+    let total = 0,
+      totalItems = 0;
     cart.forEach((item, idx) => {
       total += item.price * item.qty;
       totalItems += item.qty;
@@ -383,7 +434,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!p) return;
     const existing = cart.find(i => i.id === id);
     if (existing) existing.qty += qty;
-    else cart.push({ id: p.id, name: p.name, price: p.price, qty, image: p.image[0] });
+    else cart.push({
+      id: p.id,
+      name: p.name,
+      price: p.price,
+      qty,
+      image: p.image[0]
+    });
     updateCart();
   }
 
@@ -400,17 +457,26 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCart();
   });
 
-  cartBtn.addEventListener('click', () => { showModal(cartModal); updateCart(); });
-  
+  cartBtn.addEventListener('click', () => {
+    showModal(cartModal);
+    updateCart();
+  });
+
   checkoutBtn.addEventListener('click', () => {
-    if (cart.length === 0) { alert('El carrito está vacío'); return; }
+    if (cart.length === 0) {
+      alert('El carrito está vacío');
+      return;
+    }
     showModal(checkoutModal);
   });
 
   finalizeBtn.addEventListener('click', () => {
     const name = customerNameInput.value.trim();
     const address = customerAddressInput.value.trim();
-    if (!name || !address) { alert('Por favor completa nombre y dirección'); return; }
+    if (!name || !address) {
+      alert('Por favor completa nombre y dirección');
+      return;
+    }
     const whatsappNumber = '573227671829';
     let message = `Hola, soy ${encodeURIComponent(name)}.%0AQuiero hacer este pedido para entregar en: ${encodeURIComponent(address)}%0A%0A`;
     let total = 0;

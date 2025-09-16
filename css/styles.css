@@ -489,3 +489,22 @@ body {
   position: relative;
 }
 
+/* Nuevo estilo para la etiqueta "Lo más vendido" */
+.product-card {
+    position: relative; /* Asegúrate de que la tarjeta sea un contenedor de posicionamiento */
+}
+
+.best-seller-tag {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #e53935; /* Un rojo vibrante */
+    color: white;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 5px;
+    transform: rotate(5deg); /* Un pequeño ángulo para un toque visual */
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
