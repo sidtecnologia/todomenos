@@ -104,7 +104,7 @@ body {
 /* Banner Carousel */
 /* ----------------------------------------------------- */
 .banner-section {
-  margin: 1.2rem;
+  margin: 0.3rem;
   position: relative;
   overflow: hidden;
   border-radius: 12px;
@@ -194,7 +194,6 @@ body {
   overflow: hidden;
 }
 
-/* ===== RESTO DE ESTILOS (SIN CAMBIOS) ===== */
 
 /* Categories Carousel */
 .menu-container {
@@ -482,12 +481,6 @@ body {
 .pagination-btn:hover { background: var(--secondary); color: #fff; }
 .pagination-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; }
 
-/* ===== ESTILOS PARA LAS FLECHAS DEL BANNER ===== */
-
-/* Hacemos el contenedor relativo para posicionar las flechas */
-.main-carousel-wrapper {
-  position: relative;
-}
 
 /* Nuevo estilo para la etiqueta "Lo más vendido" */
 .product-card {
