@@ -244,11 +244,26 @@ body {
 }
 
 .section-title {
-  text-align: center;
-  color: var(--primary);
-  font-size: 1.2rem;
-  margin-bottom: 12px;
-  border-bottom: 2px solid var(--primary);  
+    display: flex; /* Activa Flexbox para alinear los elementos */
+    align-items: center; /* Centra verticalmente la cinta y las líneas */
+    text-align: center;
+    color: var(--primary);
+    font-size: 1.2rem;
+    margin: 2rem 0; /* Aumenta el margen para dar más espacio */
+}
+
+.section-title::before {
+    content: '';
+    flex: 1; /* Permite que la línea ocupe el espacio disponible */
+    border-bottom: 2px solid #ddd; /* Estilo de la línea */
+    margin-right: 1rem; /* Espacio entre la línea y la cinta */
+}
+
+.section-title::after {
+    content: '';
+    flex: 1; /* Permite que la línea ocupe el espacio disponible */
+    border-bottom: 2px solid #ddd; /* Estilo de la línea */
+    margin-left: 1rem; /* Espacio entre la cinta y la línea */
 }
 
 .product-grid {
