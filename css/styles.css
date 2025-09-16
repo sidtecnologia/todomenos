@@ -248,6 +248,7 @@ body {
   color: var(--primary);
   font-size: 1.2rem;
   margin-bottom: 12px;
+  border-bottom: 2px solid var(--primary);  
 }
 
 .product-grid {
