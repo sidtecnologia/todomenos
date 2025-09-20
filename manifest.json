@@ -3,12 +3,12 @@
   "name": "TODOMENOS",
   "icons": [
     {
-      "src": "img/app.png",
+      "src": "img/favicon.png",
       "type": "image/png",
       "sizes": "392x392"
     },
     {
-      "src": "img/app.png",
+      "src": "img/favicon.png",
       "type": "image/png",
       "sizes": "512x512"
     }

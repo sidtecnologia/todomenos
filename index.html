@@ -3,9 +3,14 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Todo Menos</title>
+    <title>Supermercado Todo Menos</title>
     <link rel="manifest" href="./manifest.json" />
     <meta name="theme-color" content="#721919" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="css/styles.css" />
     <link rel="icon" href="img/favicon.png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
@@ -24,6 +29,10 @@
             </button>
         </nav>
 
+        
+
+        <section class="main-carousel-wrapper">
+
         <!-- Banner de promociones -->
         <section class="banner-section">
           <div class="banner-carousel" id="banner-carousel">
@@ -32,9 +41,31 @@
             <div class="banner-slide"><img src="img/baner/baner3.webp" alt="Promoción 3"></div>
             <div class="banner-slide"><img src="img/baner/baner4.webp" alt="Promoción 4"></div>
             <div class="banner-slide"><img src="img/baner/baner5.webp" alt="Promoción 5"></div>
+            <div class="banner-slide"><img src="img/baner/baner6.webp" alt="Promoción 6"></div>
           </div>
           <div class="banner-dots" id="banner-dots"></div>
         </section>
+
+        </nav> <div class="ticker-wrapper">
+            <div class="ticker-text">
+                 <span>Supermercado Todo Menos APP</span>
+                <span>Envío Gratis En Compras Superiores A $150.000 ✨</span>
+                <span>Descuentos Del 20% En Productos Seleccionados solo En Nuestra App 🔥</span>
+                <span>Nuevos Productos Ya Disponibles 🚀</span>
+                 <span>Supermercado Todo Menos APP</span>
+                <span>Descuentos Del 20% En Productos Seleccionados solo En Nuestra App 🔥</span>
+                <span>Nuevos Productos Ya Disponibles 🚀</span>
+                <span>Supermercado Todo Menos APP 🚀</span>
+                 <span>Supermercado Todo Menos APP</span>
+                <span>Envío Gratis En Compras Superiores A $150.000 ✨</span>
+                <span>Descuentos Del 20% En Productos Seleccionados solo En Nuestra App 🔥</span>
+                <span>Nuevos Productos Ya Disponibles 🚀</span>
+                 <span>Supermercado Todo Menos APP</span>
+                <span>Descuentos Del 20% En Productos Seleccionados solo En Nuestra App 🔥</span>
+                <span>Nuevos Productos Ya Disponibles 🚀</span>
+                <span>Supermercado Todo Menos APP 🚀</span>
+            </div>
+        </div>
 
         <nav class="menu-container">
             <div class="category-carousel-container">
@@ -51,12 +82,12 @@
             </section>
 
             <section id="featured-section" class="menu-section">
-                <h2 class="section-title">Destacados</h2>
+                <h2 class="section-title">Productos Destacados</h2>
                 <div id="featured-grid" class="product-grid"></div>
             </section>
 
             <section id="offers-section" class="menu-section">
-                <h2 class="section-title">Ofertas</h2>
+                <h2 class="section-title">Ofertas Exclusivas</h2>
                 <div id="offers-grid" class="product-grid"></div>
             </section>
         </main>
@@ -111,13 +142,20 @@
                 <label for="customer-address">Dirección:</label>
                 <input type="text" id="customer-address" placeholder="Tu dirección de entrega" required>
               </div>
+              <label>Método de pago:</label>
+              <div>
+                  <label><input type="radio" name="payment"         value="Efectivo" checked> Efectivo</label>
+                  <label><input type="radio" name="payment"         value="Transferencia"> Transferencia</label       >
+              </div>
+      
+      
               <button id="finalize-btn" class="checkout-btn">Continuar</button>
             </div>
           </div>
         </div>
 
         <footer class="footer-menu">
-            <p>&copy; <span id="year"></span> Todos los derechos reservados - Supermercado Todo Menos</p>
+            <p>&copy; <span id="year"></span> TECSIN Todos los derechos reservados - Supermercado Todo Menos</p>
         </footer>
     </div>
 

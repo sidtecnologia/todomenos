@@ -1,3 +1,19 @@
+/**
+ * @license
+ * Copyright © 2025 Tecnología y Soluciones Informáticas. Todos los derechos reservados.
+ *
+ * AUTOSERVICIO LA QUINTA PWA
+ *
+ * Este software es propiedad confidencial y exclusiva de TECSIN.
+ * El permiso de uso de este software es temporal para pruebas en Autoservicio La Quinta.
+ *
+ * Queda estrictamente prohibida la copia, modificación, distribución,
+ * ingeniería inversa o cualquier otro uso no autorizado de este código
+ * sin el consentimiento explícito por escrito del autor.
+ *
+ * Para más información, contactar a: sidsoporte@proton.me
+ */
+
 document.addEventListener('DOMContentLoaded', () => {
 
   // --- DOM refs ---
@@ -46,6 +62,14 @@ document.addEventListener('DOMContentLoaded', () => {
     return value.toLocaleString('es-CO');
   };
 
+  const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
+
   // --- Banner Carousel ---
   const bannerCarousel = document.getElementById('banner-carousel');
   const bannerDots = document.getElementById('banner-dots');
@@ -53,29 +77,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const slides = document.querySelectorAll('.banner-slide');
     let currentBanner = 0;
     let bannerInterval;
-
-    // Duplicate the first and last slides for the infinite loop illusion
     const firstSlideClone = slides[0].cloneNode(true);
     const lastSlideClone = slides[slides.length - 1].cloneNode(true);
     bannerCarousel.appendChild(firstSlideClone);
     bannerCarousel.insertBefore(lastSlideClone, slides[0]);
-
-    // Initial position is now the first real slide, not the clone
     currentBanner = 1;
     bannerCarousel.style.transform = `translateX(-${currentBanner * 100}%)`;
-
     slides.forEach((_, idx) => {
       const dot = document.createElement('div');
       dot.classList.add('banner-dot');
       if (idx === 0) dot.classList.add('active');
-      // Update dot logic to account for cloned slides
       dot.addEventListener('click', () => goToSlide(idx + 1));
       bannerDots.appendChild(dot);
     });
 
     function updateBanner() {
       bannerCarousel.style.transform = `translateX(-${currentBanner * 100}%)`;
-      // Update dots based on the "real" slides
       const dotIndex = (currentBanner - 1 + slides.length) % slides.length;
       document.querySelectorAll('.banner-dot').forEach((dot, idx) => {
         dot.classList.toggle('active', idx === dotIndex);
@@ -88,21 +105,18 @@ document.addEventListener('DOMContentLoaded', () => {
       resetInterval();
     }
 
-    // New logic for infinite loop
     function nextBanner() {
       currentBanner++;
       updateBanner();
-      // Wait for the transition to finish before "jumping"
       if (currentBanner >= slides.length + 1) {
         setTimeout(() => {
-          bannerCarousel.style.transition = 'none'; // Disable transition for the jump
+          bannerCarousel.style.transition = 'none';
           currentBanner = 1;
           bannerCarousel.style.transform = `translateX(-${currentBanner * 100}%)`;
-          // Re-enable transition after a brief moment
           setTimeout(() => {
             bannerCarousel.style.transition = 'transform 0.5s ease';
           }, 50);
-        }, 500); // This duration should match the CSS transition time
+        }, 500);
       }
     }
 
@@ -110,8 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
       clearInterval(bannerInterval);
       bannerInterval = setInterval(nextBanner, 4000);
     }
-
-    // Add event listeners for the new cloned slides logic
     let startX = 0;
     bannerCarousel.addEventListener('touchstart', e => {
       startX = e.touches[0].clientX;
@@ -127,7 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
         resetInterval();
       }
     });
-
     let isDown = false,
       startXMouse;
     bannerCarousel.addEventListener('mousedown', e => {
@@ -146,8 +157,6 @@ document.addEventListener('DOMContentLoaded', () => {
       isDown = false;
       resetInterval();
     });
-
-    // Initial interval start
     resetInterval();
   }
 
@@ -156,13 +165,11 @@ document.addEventListener('DOMContentLoaded', () => {
     label: c
   }));
 
-  // Modificación aquí para incluir la etiqueta
   const generateProductCard = (p) => {
     let bestSellerTag = '';
     if (p.bestSeller) {
       bestSellerTag = `<div class="best-seller-tag">Lo más vendido</div>`;
     }
-
     return `
       <div class="product-card" data-product-id="${p.id}">
         ${bestSellerTag}
@@ -184,21 +191,17 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderProducts(container, products, page = 1, perPage = 20, withPagination = false) {
     container.innerHTML = '';
     const paginationContainer = document.getElementById('pagination-container');
-
     if (!products || products.length === 0) {
       noProductsMessage.style.display = 'block';
       if (paginationContainer) paginationContainer.innerHTML = '';
       return;
     }
     noProductsMessage.style.display = 'none';
-
     const totalPages = Math.ceil(products.length / perPage);
     const start = (page - 1) * perPage;
     const end = start + perPage;
     const currentProducts = products.slice(start, end);
-
     currentProducts.forEach(p => container.innerHTML += generateProductCard(p));
-
     if (withPagination && totalPages > 1) {
       renderPagination(page, totalPages, products, perPage);
     } else {
@@ -224,7 +227,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       return btn;
     }
-
     if (currentPage > 1) paginationContainer.appendChild(createBtn('Primera', 1));
     if (currentPage > 3) paginationContainer.appendChild(document.createTextNode('...'));
     const start = Math.max(1, currentPage - 2);
@@ -269,8 +271,8 @@ document.addEventListener('DOMContentLoaded', () => {
     featuredSection.style.display = 'block';
     offersSection.style.display = 'block';
     filteredSection.style.display = 'none';
-    const featured = productData.filter(p => p.featured).slice(0, 25);
-    const offers = productData.filter(p => p.isOffer).slice(0, 25);
+    const featured = shuffleArray(productData.filter(p => p.featured)).slice(0, 25);
+    const offers = shuffleArray(productData.filter(p => p.isOffer)).slice(0, 25);
     renderProducts(featuredContainer, featured, 1, 25, false);
     renderProducts(offersGrid, offers, 1, 25, false);
   };
@@ -333,9 +335,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // --- Lógica de Modales (CORREGIDA) ---
+  // --- Lógica de Modales ---
   function showModal(modal) {
-    modal.style.display = 'flex'; // Usar flex para que el CSS de centrado funcione
+    modal.style.display = 'flex';
     modal.setAttribute('aria-hidden', 'false');
   }
 
@@ -344,14 +346,11 @@ document.addEventListener('DOMContentLoaded', () => {
     modal.setAttribute('aria-hidden', 'true');
   }
 
-  // Event Listeners para cerrar modales (CORREGIDO)
   [productModal, cartModal, checkoutModal].forEach(modal => {
     modal.addEventListener('click', (e) => {
-      // Si se hace clic directamente en el fondo del modal (el overlay)
       if (e.target === modal) {
         closeModal(modal);
       }
-      // Si se hace clic en cualquier botón de cerrar
       if (e.target.classList.contains('modal-close')) {
         closeModal(modal);
       }
@@ -473,18 +472,19 @@ document.addEventListener('DOMContentLoaded', () => {
   finalizeBtn.addEventListener('click', () => {
     const name = customerNameInput.value.trim();
     const address = customerAddressInput.value.trim();
+    const payment = document.querySelector('input[name="payment"]:checked')?.value || '';
     if (!name || !address) {
       alert('Por favor completa nombre y dirección');
       return;
     }
     const whatsappNumber = '573227671829';
-    let message = `Hola, soy ${encodeURIComponent(name)}.%0AQuiero hacer este pedido para entregar en: ${encodeURIComponent(address)}%0A%0A`;
+    let message = `Hola, mi nombre es *${encodeURIComponent(name)}*.%0A%0AQuisiera hacer el siguiente pedido para entregar en la dirección: *${encodeURIComponent(address)}*.%0A%0AMétodo de pago: *${encodeURIComponent(payment)}*.%0A%0A--- MI PEDIDO ---%0A`;
     let total = 0;
     cart.forEach(item => {
       message += `- ${encodeURIComponent(item.name)} x${item.qty} = $${money(item.price * item.qty)}%0A`;
       total += item.price * item.qty;
     });
-    message += `%0ATotal:%20$${money(total)}`;
+    message += `%0ATotal: $${money(total)}`;
     const link = `https://wa.me/${whatsappNumber}?text=${message}`;
     window.open(link, '_blank');
     closeModal(checkoutModal);
