@@ -332,6 +332,7 @@ body {
 }
 
 .carousel-images-container {
+  background: var(--card-bg);
   display: flex;
   transition: transform .4s ease;
   height: 100%;
