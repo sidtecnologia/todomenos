@@ -663,3 +663,40 @@ body {
     transform: translateX(-30%);
   }
 }
+
+/* Ads Section */
+.ads-section {
+  padding: 1rem;
+}
+
+.ads-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.ad-image {
+  width: 100%;
+  aspect-ratio: 1/1; /* cuadrado */
+  object-fit: cover;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s ease;
+}
+
+.ad-image:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .ads-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .ads-grid {
+    grid-template-columns: 1fr;
+  }
+}
